@@ -1,33 +1,37 @@
 package es.nebrija.entidades;
 
-import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pokemon")
 public class Pokemon {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    @Column(name = "idPokemon")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Column(name = "idPokemon")
 	private int idPokemon;
 	@Column(name = "nombre")
 	private String nombre;
-	
-	//Para quitar una advertencia en Set he incluido <?>
-	@Column(name = "tipo")
-	private Set<?> tipo;
-	
-	@Column(name = "habilidad")
-	private Set<?> habilidad;
-	
-	@Column(name = "entrenador")
-	private Set<?> entrenador;
+
+	@ManyToOne
+	@JoinColumn(name = "tipo_id")
+	private Tipo tipo;
+
+	@ManyToOne
+	@JoinColumn(name = "habilidad_id")
+	private Habilidad habilidad;
+
+	@ManyToOne
+	@JoinColumn(name = "entrenador_id")
+	private Entrenador entrenador;
 
 	public Pokemon() {
 	}
@@ -53,27 +57,27 @@ public class Pokemon {
 		this.nombre = nombre;
 	}
 
-	public Set<?> getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Set<?> tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 
-	public Set<?> getHabilidad() {
+	public Habilidad getHabilidad() {
 		return habilidad;
 	}
 
-	public void setHabilidad(Set<?> habilidad) {
+	public void setHabilidad(Habilidad habilidad) {
 		this.habilidad = habilidad;
 	}
 
-	public Set<?> getEntrenador() {
+	public Entrenador getEntrenador() {
 		return entrenador;
 	}
 
-	public void setEntrenador(Set<?> entrenador) {
+	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;
 	}
 }
