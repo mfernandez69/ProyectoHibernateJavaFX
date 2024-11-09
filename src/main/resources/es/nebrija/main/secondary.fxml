@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="473.0" prefWidth="601.0" spacing="20.0" style="-fx-background-color: #ffcb05;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.proyecto.javafxV1.SecondaryController">
+    <children>
+        <Label text="Tu equipo pokemon">
+         <font>
+            <Font size="29.0" />
+         </font></Label>
+      <TableView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff5cd;">
+        <columns>
+            <TableColumn prefWidth="60.799991607666016" text="id" />
+          <TableColumn prefWidth="151.20001220703125" text="nombre" />
+          <TableColumn prefWidth="50.40000915527344" text="nivel" />
+            <TableColumn prefWidth="96.0" text="tipo" />
+            <TableColumn prefWidth="99.199951171875" text="habilidad" />
+            <TableColumn prefWidth="107.20001220703125" text="entrenador" />
+        </columns>
+      </TableView>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="282.0" style="-fx-alignment: center;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #262626;" text="Agregar pokemon" textFill="WHITE" />
+                  <HBox prefHeight="25.0" prefWidth="282.0" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: #262626;" text="Eliminar pokemon" textFill="WHITE" />
+               </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="278.0" style="-fx-alignment: center;">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: #262626;" text="Modificar pokemon" textFill="WHITE" />
+                  <HBox prefHeight="25.0" prefWidth="282.0" />
+                    <Button fx:id="secondaryButton" onAction="#switchToPrimary" style="-fx-background-color: #262626;" text="Volver" textFill="WHITE" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
