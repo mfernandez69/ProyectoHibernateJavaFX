@@ -50,7 +50,7 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 			pokemon = sesion.get(Pokemon.class, id);
 			transaction.commit();
 		} catch (HibernateException e) {
-			System.out.println("Error al leer una plataforma");
+			System.out.println("Error al leer un pokemon");
 			if (sesion.getTransaction() != null) {
 				sesion.getTransaction().rollback();
 			}
@@ -68,7 +68,7 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 			sesion.delete(t);
 			transaction.commit();
 		} catch (HibernateException e) {
-			System.out.println("Error al borrar una plataforma");
+			System.out.println("Error al borrar un pokemon");
 			if (sesion.getTransaction() != null) {
 				sesion.getTransaction().rollback();
 			}
@@ -86,20 +86,20 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
         try {
             // Iniciar la transacción
             transaction = session.beginTransaction();  
-            // Verificar si se encontró la plataforma
+            // Verificar si se encontró el pokemon
             if (t != null) {
                 // Actualizar el objeto en la base de datos
                 session.update(t);
                 // Confirmar la transacción
                 transaction.commit();                
-             // Obtener el objeto Plataforma por su ID
+             // Obtener el objeto pokemon por su ID
                 pokemon = session.get(Pokemon.class, t.getId());
-                System.out.println("Plataforma actualizada: " + pokemon.getName());
+                System.out.println("pokemon actualizado: " + pokemon.getName());
             } else {
-                System.out.println("Plataforma no encontrada con ID: " + t.getId());
+                System.out.println("pokemon no encontrada con ID: " + t.getId());
             }
         } catch (HibernateException e) {
-			System.out.println("Error al leer una plataforma");
+			System.out.println("Error al leer un pokemon");
         }
 		return pokemon;
 	}
@@ -116,9 +116,9 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 		sesion = HibernateUtil.getSessionFactory().openSession();
 		List<Pokemon> listaPokemon=null;
 		try {
-			listaPokemon = sesion.createQuery("from Plataforma", Pokemon.class).list();
+			listaPokemon = sesion.createQuery("from Pokemon", Pokemon.class).list();
 		} catch (HibernateException e) {
-			System.out.println("Error al leer una plataforma");
+			System.out.println("Error al leer un pokemon");
 			if (sesion.getTransaction() != null) {
 				sesion.getTransaction().rollback();
 			}
