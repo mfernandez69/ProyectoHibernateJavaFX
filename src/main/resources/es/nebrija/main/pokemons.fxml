@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="478.0" prefWidth="509.0" spacing="20.0" style="-fx-background-color: #ffcb05;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebrija.main.PlataformaController">
+<VBox alignment="CENTER" prefHeight="478.0" prefWidth="509.0" spacing="20.0" style="-fx-background-color: #ffcb05;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebrija.main.PokemonController">
    <children>
       <Label text="Pokemons" />
       <HBox prefHeight="127.0" prefWidth="470.0" style="-fx-background-color: #ffdb50; -fx-padding: 10px; -fx-background-radius: 10px;">
@@ -59,7 +59,7 @@
                   <Insets />
                </HBox.margin>
                <children>
-                  <Button mnemonicParsing="false" onAction="#grabarPlataforma" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Grabar" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#grabarPokemon" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Grabar" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -67,7 +67,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#borrarPlataforma" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Borrar" textFill="#f4f4f4">
+                  <Button mnemonicParsing="false" onAction="#borrarPokemon" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Borrar" textFill="#f4f4f4">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -82,7 +82,7 @@
                   <Insets />
                </HBox.margin>
                <children>
-                  <Button mnemonicParsing="false" onAction="#actualizarPlataforma" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Actualizar" textFill="#fafafa">
+                  <Button mnemonicParsing="false" onAction="#actualizarPokemon" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Actualizar" textFill="#fafafa">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
