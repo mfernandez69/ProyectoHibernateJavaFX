@@ -1,7 +1,7 @@
 package es.nebrija.main;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import es.nebrija.dao.DaoPokemonImpl;
 import es.nebrija.entidades.Pokemon;
@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -20,6 +21,10 @@ public class PokemonController {
 	private TextField nombreTexto;
 	@FXML
 	private TableView<Pokemon> tablaPokemons;
+	@FXML
+	private ComboBox<String> tipoComboBox;
+	@FXML
+	private ComboBox<String> habilidadComboBox;
 	@FXML
 	TableColumn<Pokemon, ?> idColumn;
 	@FXML
@@ -35,36 +40,45 @@ public class PokemonController {
 	int filaSeleccionada;
 
 	DaoPokemonImpl DaoPokemonImpl;
+	private List<String> tiposArray;
+	private List<String> habilidadesArray;
 
 	@FXML
 	public void initialize() {
-	    DaoPokemonImpl = new DaoPokemonImpl();
-	    ArrayList<Pokemon> listadoPokemons = (ArrayList) DaoPokemonImpl.leerLista();
-	    tablaPokemons.setEditable(true);
+		DaoPokemonImpl = new DaoPokemonImpl();
+		ArrayList<Pokemon> listadoPokemons = (ArrayList) DaoPokemonImpl.leerLista();
+		tablaPokemons.setEditable(true);
+		// Obtener tipos y habilidades de la base de datos
+		tiposArray = DaoPokemonImpl.obtenerTipos();
+		habilidadesArray = DaoPokemonImpl.obtenerHabilidades();
 
-	    // Configurar las columnas existentes
-	    idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
-	    nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
-	    tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-	    habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
-	    entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
+		// Llena los ComboBox con las opciones
+		tipoComboBox.getItems().addAll(tiposArray);
+		habilidadComboBox.getItems().addAll(habilidadesArray);
+		// Configurar las columnas existentes
+		idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
+		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
+		tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+		habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
+		entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
 
-	    // Crear una lista observable de objetos Pokemon
-	    ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
+		// Crear una lista observable de objetos Pokemon
+		ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
 
-	    // Asignar la lista a la TableView
-	    tablaPokemons.setItems(pokemons);
+		// Asignar la lista a la TableView
+		tablaPokemons.setItems(pokemons);
 
-	    // Asignar un listener para detectar cuando se selecciona una fila
-	    tablaPokemons.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-	        if (newValue != null) {
-	            // Acción cuando se selecciona una fila
-	            pokemonSeleccionado = DaoPokemonImpl.leer(newValue.getId());
-	            nombreTexto.setText(newValue.getName());
-	            filaSeleccionada = tablaPokemons.getSelectionModel().getSelectedIndex();
-	        }
-	    });
+		// Asignar un listener para detectar cuando se selecciona una fila
+		tablaPokemons.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				// Acción cuando se selecciona una fila
+				pokemonSeleccionado = DaoPokemonImpl.leer(newValue.getId());
+				nombreTexto.setText(newValue.getName());
+				filaSeleccionada = tablaPokemons.getSelectionModel().getSelectedIndex();
+			}
+		});
 	}
+
 	@FXML
 	void grabarPokemon(ActionEvent event) {
 		if (nombreTexto.getText() != "") {
@@ -83,8 +97,7 @@ public class PokemonController {
 			pokemon = DaoPokemonImpl.modificar(pokemonSeleccionado);
 			System.out.println(pokemon.toString());
 			if (tablaPokemons.getSelectionModel().getSelectedIndex() != -1) {
-				tablaPokemons.getSelectionModel().getSelectedItem()
-						.setName(pokemonSeleccionado.getName());
+				tablaPokemons.getSelectionModel().getSelectedItem().setName(pokemonSeleccionado.getName());
 				tablaPokemons.refresh();
 			}
 		}

@@ -1,5 +1,6 @@
 package es.nebrija.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
 import es.nebrija.entidades.Pokemon;
 
 public class DaoPokemonImpl implements Dao<Pokemon> {
@@ -155,4 +158,25 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 		}
 		return pokemon;
 	}
+	public List<String> obtenerTipos() {
+        List<String> tipos = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<String> query = session.createQuery("SELECT nombre FROM Tipo ", String.class);
+            tipos = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tipos;
+    }
+
+    public List<String> obtenerHabilidades() {
+        List<String> habilidades = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<String> query = session.createQuery("SELECT nombre FROM Habilidad ", String.class);
+            habilidades = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return habilidades;
+    }
 }

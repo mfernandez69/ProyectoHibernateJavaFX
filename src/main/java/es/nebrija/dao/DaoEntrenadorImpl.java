@@ -70,7 +70,7 @@ public class DaoEntrenadorImpl implements Dao<Entrenador>{
 			List<Entrenador> entrenadores = sesion
 				    .createQuery("FROM Entrenador WHERE nombre = :nombre AND contrasena = :contrasena", Entrenador.class)
 				    .setParameter("nombre", nombreUsuario)
-				    .setParameter("contrasena", contraseña)  // Cambiado de "contraseña" a "contrasena"
+				    .setParameter("contrasena", contraseña)  
 				    .getResultList();
 
 				// Confirmar la transacción

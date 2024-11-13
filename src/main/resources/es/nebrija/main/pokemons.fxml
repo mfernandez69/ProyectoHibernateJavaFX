@@ -46,9 +46,9 @@
                         <Insets bottom="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox prefHeight="26.0" prefWidth="150.0" />
+                  <ComboBox fx:id="tipoComboBox" prefHeight="26.0" prefWidth="150.0" />
                   <HBox prefHeight="10.0" prefWidth="338.0" />
-                  <ComboBox prefHeight="26.0" prefWidth="150.0" />
+                  <ComboBox fx:id="habilidadComboBox" prefHeight="26.0" prefWidth="150.0" />
                </children>
             </VBox>
          </children>

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -17,8 +18,12 @@ public class EntrenadorController {
 	@FXML
 	private TextField textoContrasena;
 	@FXML
-	private TextField mensajeError;
-
+	private Label mensajeError;
+	
+	@FXML
+	public void initialize() {
+	    mensajeError.setVisible(false);
+	}
 	@FXML
 	public void iniciarSesion() throws IOException {
 	    String usuario = textoUsuario.getText();
@@ -40,9 +45,13 @@ public class EntrenadorController {
 	    }
 	}
 
-	private void mostrarMensaje(String string, String string2) {
-		
-		
+	private void mostrarMensaje(String tipo, String mensaje) {
+	    if (tipo.equals("Error")) {
+	        mensajeError.setText(mensaje);
+	        mensajeError.setVisible(true);
+	    } else {
+	        mensajeError.setVisible(false);
+	    }
 	}
 
 	@FXML
