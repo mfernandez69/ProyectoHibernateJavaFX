@@ -38,43 +38,33 @@ public class PokemonController {
 
 	@FXML
 	public void initialize() {
-		DaoPokemonImpl = new DaoPokemonImpl();
-		ArrayList<Pokemon> listadoPokemons = (ArrayList) DaoPokemonImpl.leerLista();
-		tablaPokemons.setEditable(true);
+	    DaoPokemonImpl = new DaoPokemonImpl();
+	    ArrayList<Pokemon> listadoPokemons = (ArrayList) DaoPokemonImpl.leerLista();
+	    tablaPokemons.setEditable(true);
 
-		// Crear las columnas de la TableView
-		idColumn = new TableColumn("ID");
-		nombreColumn = new TableColumn<>("Nombre");
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
-		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
-		habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
-		tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-		entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
+	    // Configurar las columnas existentes
+	    idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
+	    nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
+	    tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+	    habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
+	    entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
 
-		// Añadir las columnas a la TableView
-		tablaPokemons.getColumns().add(idColumn);
-		tablaPokemons.getColumns().add(nombreColumn);
-		tablaPokemons.getColumns().add(tipoColumn);
-		tablaPokemons.getColumns().add(habilidadColumn);
-		tablaPokemons.getColumns().add(entrenadorColumn);
+	    // Crear una lista observable de objetos Pokemon
+	    ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
 
-		// Crear una lista observable de objetos Plataforma
-		ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
+	    // Asignar la lista a la TableView
+	    tablaPokemons.setItems(pokemons);
 
-		// Asignar la lista a la TableView
-		tablaPokemons.setItems(pokemons);
-
-		// Asignar un listener para detectar cuando se selecciona una fila
-		tablaPokemons.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				// Acción cuando se selecciona una fila
-				pokemonSeleccionado = DaoPokemonImpl.leer(newValue.getId());
-				nombreTexto.setText(newValue.getName());
-				filaSeleccionada = tablaPokemons.getSelectionModel().getSelectedIndex();
-			}
-		});
+	    // Asignar un listener para detectar cuando se selecciona una fila
+	    tablaPokemons.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        if (newValue != null) {
+	            // Acción cuando se selecciona una fila
+	            pokemonSeleccionado = DaoPokemonImpl.leer(newValue.getId());
+	            nombreTexto.setText(newValue.getName());
+	            filaSeleccionada = tablaPokemons.getSelectionModel().getSelectedIndex();
+	        }
+	    });
 	}
-
 	@FXML
 	void grabarPokemon(ActionEvent event) {
 		if (nombreTexto.getText() != "") {
