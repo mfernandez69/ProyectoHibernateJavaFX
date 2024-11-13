@@ -47,6 +47,9 @@ public class PokemonController {
 		nombreColumn = new TableColumn<>("Nombre");
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
 		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
+		habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
+		tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+		entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
 
 		// Añadir las columnas a la TableView
 		tablaPokemons.getColumns().add(idColumn);

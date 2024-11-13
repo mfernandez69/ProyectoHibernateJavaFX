@@ -8,7 +8,7 @@
         <property name="hibernate.connection.password">1234</property>
 
         <!-- Dialecto MySQL para Hibernate -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Mostrar las consultas SQL en consola (útil para depuración) -->
         <property name="hibernate.show_sql">true</property>

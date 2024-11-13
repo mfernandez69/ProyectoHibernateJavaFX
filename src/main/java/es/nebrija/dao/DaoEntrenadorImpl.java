@@ -68,13 +68,13 @@ public class DaoEntrenadorImpl implements Dao<Entrenador>{
 			transaction = sesion.beginTransaction();
 			// Iniciar una transacción (opcional, pero recomendado)
 			List<Entrenador> entrenadores = sesion
-					//Hacemos un select confirmando el nombre de usuario y la contraseña
-				    .createQuery("FROM entrenador WHERE nombre = :nombre AND contraseña = :contraseña", Entrenador.class)
+				    .createQuery("FROM Entrenador WHERE nombre = :nombre AND contrasena = :contrasena", Entrenador.class)
 				    .setParameter("nombre", nombreUsuario)
-				    .setParameter("contraseña", contraseña)
+				    .setParameter("contrasena", contraseña)  // Cambiado de "contraseña" a "contrasena"
 				    .getResultList();
-			// Confirmar la transacción
-			transaction.commit();
+
+				// Confirmar la transacción
+				transaction.commit();
 
 			if (!entrenadores.isEmpty()) {
 				entrenador = entrenadores.get(0); // Recuperar el primer resultado (o único)
