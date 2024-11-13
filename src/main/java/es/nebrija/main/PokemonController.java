@@ -2,9 +2,8 @@ package es.nebrija.main;
 
 import java.util.ArrayList;
 
-import es.nebrija.dao.DaoPlataformasImpl;
+
 import es.nebrija.dao.DaoPokemonImpl;
-import es.nebrija.entidades.Plataforma;
 import es.nebrija.entidades.Pokemon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

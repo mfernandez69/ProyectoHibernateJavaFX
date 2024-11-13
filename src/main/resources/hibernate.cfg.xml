@@ -15,7 +15,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Actualizar automáticamente las tablas de la base de datos según las entidades definidas -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
 		<mapping class="es.nebrija.entidades.Plataforma"/>
 		

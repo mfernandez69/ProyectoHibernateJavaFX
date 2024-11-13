@@ -10,13 +10,13 @@
         <maven.compiler.target>23</maven.compiler.target>
     </properties>
     <dependencies>
+    
 		<!-- JavaFX-->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>22</version>
         </dependency>
-       
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>

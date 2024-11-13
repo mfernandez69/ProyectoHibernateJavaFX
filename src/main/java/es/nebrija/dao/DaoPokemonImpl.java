@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import es.nebrija.entidades.Plataforma;
 import es.nebrija.entidades.Pokemon;
 
 public class DaoPokemonImpl implements Dao<Pokemon> {
