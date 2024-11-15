@@ -18,7 +18,7 @@ public class Pokemon {
 
 	@Column(name = "idPokemon")
 	private int idPokemon;
-	@Column(name = "nombre")
+	@Column(name = "nombre_pokemon")
 	private String nombre;
 
 	@ManyToOne
