@@ -1,5 +1,6 @@
 package es.nebrija.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 public class DaoEntrenadorImpl implements Dao<Entrenador>{
 	Session sesion;
@@ -160,5 +162,23 @@ public class DaoEntrenadorImpl implements Dao<Entrenador>{
 			sesion.close();
 		}
 		return listaEntrenador;
+	}
+	public int obtenerIdEntrenador(String nombreUsuario) {
+	    int idEntrenador = -1; // Valor por defecto en caso de error
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        Query<Integer> query = session.createQuery(
+	            "SELECT idEntrenador FROM Entrenador WHERE nombre = :nombre", 
+	            Integer.class
+	        );
+	        query.setParameter("nombre", nombreUsuario);
+	        List<Integer> resultados = query.getResultList();
+	        if (!resultados.isEmpty()) {
+	            idEntrenador = resultados.get(0);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Aquí podrías lanzar una excepción personalizada o manejar el error de otra manera
+	    }
+	    return idEntrenador;
 	}
 }

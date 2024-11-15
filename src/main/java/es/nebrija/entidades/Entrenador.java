@@ -40,8 +40,8 @@ public class Entrenador {
 	}
 
 	public String getName() {
-		return nombre;
-	}
+        return this.nombre;
+    }
 
 	public void setName(String nombre) {
 		this.nombre = nombre;
@@ -54,5 +54,8 @@ public class Entrenador {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-
+	@Override
+    public String toString() {
+        return this.nombre;
+    }
 }

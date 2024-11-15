@@ -40,6 +40,11 @@ public class Pokemon {
 		this.nombre = nombre;
 
 	}
+	public Pokemon(String nombre, Tipo tipo, Habilidad habilidad) {
+	    this.nombre = nombre;
+	    this.tipo = tipo;
+	    this.habilidad = habilidad;
+	}
 
 	public int getId() {
 		return idPokemon;
@@ -74,8 +79,8 @@ public class Pokemon {
 	}
 
 	public Entrenador getEntrenador() {
-		return entrenador;
-	}
+        return this.entrenador;
+    }
 
 	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;

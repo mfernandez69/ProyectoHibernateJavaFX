@@ -54,4 +54,10 @@ public class Habilidad {
 	public void setDescripcion(String Descripcion) {
 		this.descripcion = Descripcion;
 	}
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
 }

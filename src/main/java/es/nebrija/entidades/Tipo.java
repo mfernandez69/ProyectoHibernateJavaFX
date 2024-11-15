@@ -45,5 +45,9 @@ public class Tipo {
 	public void setName(String nombre) {
 		this.nombre = nombre;
 	}
+	  @Override
+	    public String toString() {
+	        return nombre;
+	    }
 
 }

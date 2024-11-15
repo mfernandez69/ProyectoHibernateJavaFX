@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import es.nebrija.dao.DaoEntrenadorImpl;
 import es.nebrija.entidades.Entrenador;
+import es.nebrija.entidades.InicioSesion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,6 +39,8 @@ public class EntrenadorController {
 	    Entrenador entrenador = entrenadorDAO.leer(usuario, contraseña);
 
 	    if (entrenador != null) {
+	    	 Integer entrenadorId =entrenadorDAO.obtenerIdEntrenador(usuario);
+	    	 InicioSesion.getInstancia().setEntrenadorId(entrenadorId);
 	        mostrarMensaje("Éxito", "Inicio de sesión exitoso.");
 	        mandarVentanaPokemons();
 	    } else {

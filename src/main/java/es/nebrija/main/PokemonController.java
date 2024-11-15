@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.nebrija.dao.DaoPokemonImpl;
+import es.nebrija.entidades.*;
 import es.nebrija.entidades.Pokemon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 
 public class PokemonController {
 
@@ -22,9 +24,9 @@ public class PokemonController {
 	@FXML
 	private TableView<Pokemon> tablaPokemons;
 	@FXML
-	private ComboBox<String> tipoComboBox;
+	private ComboBox<Tipo> tipoComboBox;
 	@FXML
-	private ComboBox<String> habilidadComboBox;
+	private ComboBox<Habilidad> habilidadComboBox;
 	@FXML
 	TableColumn<Pokemon, ?> idColumn;
 	@FXML
@@ -34,14 +36,14 @@ public class PokemonController {
 	@FXML
 	TableColumn<Pokemon, ?> habilidadColumn;
 	@FXML
-	TableColumn<Pokemon, ?> entrenadorColumn;
+	TableColumn<Pokemon, String> entrenadorColumn;
 
 	Pokemon pokemonSeleccionado;
 	int filaSeleccionada;
 
 	DaoPokemonImpl DaoPokemonImpl;
-	private List<String> tiposArray;
-	private List<String> habilidadesArray;
+	private List<Tipo> tiposArray;
+	private List<Habilidad> habilidadesArray;
 
 	@FXML
 	public void initialize() {
@@ -55,6 +57,41 @@ public class PokemonController {
 		// Llena los ComboBox con las opciones
 		tipoComboBox.getItems().addAll(tiposArray);
 		habilidadComboBox.getItems().addAll(habilidadesArray);
+		
+		// Configurar cómo se muestran los elementos en los ComboBox
+	    tipoComboBox.setConverter(new StringConverter<Tipo>() {
+	        @Override
+	        public String toString(Tipo tipo) {
+	            return tipo == null ? null : tipo.toString();
+	        }
+
+	        @Override
+	        public Tipo fromString(String string) {
+	            return null; // No necesitamos implementar esto para este caso
+	        }
+	    });
+
+	    habilidadComboBox.setConverter(new StringConverter<Habilidad>() {
+	        @Override
+	        public String toString(Habilidad habilidad) {
+	            return habilidad == null ? null : habilidad.toString();
+	        }
+
+	        @Override
+	        public Habilidad fromString(String string) {
+	            return null; // No necesitamos implementar esto para este caso
+	        }
+	    });
+	    /*
+	    entrenadorColumn.setCellValueFactory(cellData -> {
+	        Pokemon pokemon = cellData.getValue();
+	        if (pokemon != null && pokemon.getEntrenador() != null) {
+	            return new SimpleStringProperty(pokemon.getEntrenador().getName());
+	        } else {
+	            return new SimpleStringProperty("");
+	        }
+	    });
+	    */
 		// Configurar las columnas existentes
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
 		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
@@ -81,12 +118,20 @@ public class PokemonController {
 
 	@FXML
 	void grabarPokemon(ActionEvent event) {
-		if (nombreTexto.getText() != "") {
-			Pokemon pokemon = new Pokemon(nombreTexto.getText());
-			DaoPokemonImpl.grabar(pokemon);
-			pokemon = DaoPokemonImpl.leer("nombre", pokemon.getName());
-			tablaPokemons.getItems().add(pokemon);
-		}
+	    if (!nombreTexto.getText().isEmpty()) {
+	        Tipo tipoSeleccionado = tipoComboBox.getValue();
+	        Habilidad habilidadSeleccionada = habilidadComboBox.getValue();
+	        
+	        if (tipoSeleccionado != null && habilidadSeleccionada != null) {
+	            Pokemon pokemon = new Pokemon(nombreTexto.getText(), tipoSeleccionado, habilidadSeleccionada);
+	            pokemon = DaoPokemonImpl.grabar(pokemon);
+	            if (pokemon != null) {
+	                tablaPokemons.getItems().add(pokemon);
+	            }
+	        } else {
+	            // Mostrar un mensaje de error si no se seleccionó tipo o habilidad
+	        }
+	    }
 	}
 
 	@FXML

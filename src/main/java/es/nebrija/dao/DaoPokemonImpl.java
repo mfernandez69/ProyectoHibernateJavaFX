@@ -11,7 +11,9 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import es.nebrija.entidades.Habilidad;
 import es.nebrija.entidades.Pokemon;
+import es.nebrija.entidades.Tipo;
 
 public class DaoPokemonImpl implements Dao<Pokemon> {
 
@@ -25,22 +27,29 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 	@SuppressWarnings("deprecation")
 	@Override
 	public Pokemon grabar(Pokemon t) {
-		Pokemon pokemon = null;
-		Integer idPokemon;
-		sesion = HibernateUtil.getSessionFactory().openSession();
-		try {
-			transaction = sesion.beginTransaction();
-			sesion.save(t);
-			transaction.commit();
-		} catch (HibernateException e) {
-			System.out.println("Error al salvar una plataforma");
-			if (sesion.getTransaction() != null) {
-				sesion.getTransaction().rollback();
-			}
-		} finally {
-			sesion.close();
-		}
-		return pokemon;
+	    Pokemon pokemon = null;
+	    Session sesion = null;
+	    Transaction transaction = null;
+	    try {
+	        sesion = HibernateUtil.getSessionFactory().openSession();
+	        transaction = sesion.beginTransaction();
+	        
+	        // Guardar el Pokémon
+	        sesion.save(t);
+	        
+	        transaction.commit();
+	        pokemon = t; // El Pokémon ya tiene su ID asignado después de save()
+	    } catch (HibernateException e) {
+	        System.out.println("Error al guardar un Pokémon: " + e.getMessage());
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	    } finally {
+	        if (sesion != null) {
+	            sesion.close();
+	        }
+	    }
+	    return pokemon;
 	}
 
 	@Override
@@ -115,19 +124,18 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 
 	@Override
 	public List<Pokemon> leerLista() {
-		sesion = HibernateUtil.getSessionFactory().openSession();
-		List<Pokemon> listaPokemon=null;
-		try {
-			listaPokemon = sesion.createQuery("from Pokemon", Pokemon.class).list();
-		} catch (HibernateException e) {
-			System.out.println("Error al leer un pokemon");
-			if (sesion.getTransaction() != null) {
-				sesion.getTransaction().rollback();
-			}
-		} finally {
-			sesion.close();
-		}
-		return listaPokemon;
+	    Session sesion = HibernateUtil.getSessionFactory().openSession();
+	    List<Pokemon> listaPokemon = null;
+	    try {
+	        Query<Pokemon> query = sesion.createQuery("FROM Pokemon p LEFT JOIN FETCH p.entrenador", Pokemon.class);
+	        listaPokemon = query.getResultList();
+	    } catch (HibernateException e) {
+	        System.out.println("Error al leer los pokemon: " + e.getMessage());
+	        e.printStackTrace();
+	    } finally {
+	        sesion.close();
+	    }
+	    return listaPokemon;
 	}
 
 	@Override
@@ -158,25 +166,25 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 		}
 		return pokemon;
 	}
-	public List<String> obtenerTipos() {
-        List<String> tipos = new ArrayList<>();
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<String> query = session.createQuery("SELECT nombre FROM Tipo ", String.class);
-            tipos = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return tipos;
-    }
+	public List<Tipo> obtenerTipos() {
+	    List<Tipo> tipos = new ArrayList<>();
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        Query<Tipo> query = session.createQuery("FROM Tipo", Tipo.class);
+	        tipos = query.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return tipos;
+	}
 
-    public List<String> obtenerHabilidades() {
-        List<String> habilidades = new ArrayList<>();
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<String> query = session.createQuery("SELECT nombre FROM Habilidad ", String.class);
-            habilidades = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return habilidades;
-    }
+	public List<Habilidad> obtenerHabilidades() {
+	    List<Habilidad> habilidades = new ArrayList<>();
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        Query<Habilidad> query = session.createQuery("FROM Habilidad", Habilidad.class);
+	        habilidades = query.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return habilidades;
+	}
 }

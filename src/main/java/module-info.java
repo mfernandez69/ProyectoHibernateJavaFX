@@ -3,7 +3,8 @@ module es.nebrija.actividadEmpleados {
     requires javafx.fxml;
     requires org.hibernate.orm.core; 
     requires java.sql;
-    requires jakarta.persistence; 
+    requires jakarta.persistence;
+	requires javafx.base; 
 
     exports es.nebrija.main;
     exports es.nebrija.dao;
