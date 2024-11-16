@@ -25,7 +25,8 @@ public class DatabaseController {
         }
     }
 
-    private static void testConnection() {
+    @SuppressWarnings("deprecation")
+	private static void testConnection() {
         Session session = null;
         try {
             session = sessionFactory.openSession();

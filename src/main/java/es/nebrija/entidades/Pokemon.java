@@ -85,4 +85,5 @@ public class Pokemon {
 	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;
 	}
+	
 }

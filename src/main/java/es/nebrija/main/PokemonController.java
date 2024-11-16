@@ -28,15 +28,15 @@ public class PokemonController {
 	@FXML
 	private ComboBox<Habilidad> habilidadComboBox;
 	@FXML
-	TableColumn<Pokemon, ?> idColumn;
+	private TableColumn<Pokemon, Integer> idColumn;
 	@FXML
-	TableColumn<Pokemon, ?> nombreColumn;
+	private TableColumn<Pokemon, String> nombreColumn;
 	@FXML
-	TableColumn<Pokemon, ?> tipoColumn;
+	private TableColumn<Pokemon, String> tipoColumn;
 	@FXML
-	TableColumn<Pokemon, ?> habilidadColumn;
+	private TableColumn<Pokemon, String> habilidadColumn;
 	@FXML
-	TableColumn<Pokemon, String> entrenadorColumn;
+	private TableColumn<Pokemon, String> entrenadorColumn;
 
 	Pokemon pokemonSeleccionado;
 	int filaSeleccionada;
@@ -82,19 +82,11 @@ public class PokemonController {
 	            return null; // No necesitamos implementar esto para este caso
 	        }
 	    });
-	    /*
-	    entrenadorColumn.setCellValueFactory(cellData -> {
-	        Pokemon pokemon = cellData.getValue();
-	        if (pokemon != null && pokemon.getEntrenador() != null) {
-	            return new SimpleStringProperty(pokemon.getEntrenador().getName());
-	        } else {
-	            return new SimpleStringProperty("");
-	        }
-	    });
-	    */
-		// Configurar las columnas existentes
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("idPokemon"));
-		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombrePokemon"));
+	    
+		// Configurar las columnas existentes,el nombre que le pasamos en los parentesis tiene que ser el mismo que 
+	    // el nombre del getter y setter de la clase pokemon
+	    idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+	    nombreColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 		habilidadColumn.setCellValueFactory(new PropertyValueFactory<>("habilidad"));
 		entrenadorColumn.setCellValueFactory(new PropertyValueFactory<>("entrenador"));
@@ -114,6 +106,7 @@ public class PokemonController {
 				filaSeleccionada = tablaPokemons.getSelectionModel().getSelectedIndex();
 			}
 		});
+		actualizarTabla();
 	}
 
 	@FXML
@@ -158,8 +151,15 @@ public class PokemonController {
 	}
 
 	private void actualizarTabla() {
-		ArrayList<Pokemon> listadoPokemons = (ArrayList<Pokemon>) DaoPokemonImpl.leerLista();
-		ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
-		tablaPokemons.setItems(pokemons);
+	    ArrayList<Pokemon> listadoPokemons = (ArrayList<Pokemon>) DaoPokemonImpl.leerLista();
+	    for (Pokemon p : listadoPokemons) {
+	    	System.out.println("-----------------------------------------------------------------");
+	        System.out.println("ID: " + p.getId() + ", Nombre: " + p.getName() +
+	                           ", Tipo: " + (p.getTipo() != null ? p.getTipo().getName() : "null") +
+	                           ", Habilidad: " + (p.getHabilidad() != null ? p.getHabilidad().getName() : "null") +
+	                           ", Entrenador: " + (p.getEntrenador() != null ? p.getEntrenador().getName() : "null"));
+	    }
+	    ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
+	    tablaPokemons.setItems(pokemons);
 	}
 }

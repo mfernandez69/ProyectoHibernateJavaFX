@@ -1,14 +1,14 @@
 package es.nebrija.dao;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+
 import org.hibernate.query.Query;
 
 import es.nebrija.entidades.Habilidad;
@@ -71,6 +71,7 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 		return pokemon;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Pokemon borrar(Pokemon t) {
 		sesion = HibernateUtil.getSessionFactory().openSession();
@@ -89,6 +90,7 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 		return t;
 	}
 
+	@SuppressWarnings({ "deprecation", "null" })
 	@Override
 	public Pokemon modificar(Pokemon t) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -127,7 +129,7 @@ public class DaoPokemonImpl implements Dao<Pokemon> {
 	    Session sesion = HibernateUtil.getSessionFactory().openSession();
 	    List<Pokemon> listaPokemon = null;
 	    try {
-	        Query<Pokemon> query = sesion.createQuery("FROM Pokemon p LEFT JOIN FETCH p.entrenador", Pokemon.class);
+	    	Query<Pokemon> query = sesion.createQuery("from Pokemon", Pokemon.class);
 	        listaPokemon = query.getResultList();
 	    } catch (HibernateException e) {
 	        System.out.println("Error al leer los pokemon: " + e.getMessage());
