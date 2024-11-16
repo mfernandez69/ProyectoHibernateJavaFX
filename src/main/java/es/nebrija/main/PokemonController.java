@@ -112,11 +112,20 @@ public class PokemonController {
 	@FXML
 	void grabarPokemon(ActionEvent event) {
 	    if (!nombreTexto.getText().isEmpty()) {
+	    	
 	        Tipo tipoSeleccionado = tipoComboBox.getValue();
 	        Habilidad habilidadSeleccionada = habilidadComboBox.getValue();
 	        
+            
 	        if (tipoSeleccionado != null && habilidadSeleccionada != null) {
 	            Pokemon pokemon = new Pokemon(nombreTexto.getText(), tipoSeleccionado, habilidadSeleccionada);
+	            
+	            // Obtener el Entrenador actual
+	            Entrenador entrenadorActual = InicioSesion.getInstancia().getEntrenadorActual();
+	            
+	            // Asignar el Entrenador al Pokémon
+	            pokemon.setEntrenador(entrenadorActual);
+	            
 	            pokemon = DaoPokemonImpl.grabar(pokemon);
 	            if (pokemon != null) {
 	                tablaPokemons.getItems().add(pokemon);

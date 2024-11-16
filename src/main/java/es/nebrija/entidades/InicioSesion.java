@@ -1,8 +1,8 @@
 package es.nebrija.entidades;
 
 public class InicioSesion {
-	private static InicioSesion instancia;
-    private Integer entrenadorId;
+    private static InicioSesion instancia;
+    private Entrenador entrenadorActual;
 
     private InicioSesion() {}
 
@@ -13,11 +13,11 @@ public class InicioSesion {
         return instancia;
     }
 
-    public void setEntrenadorId(Integer id) {
-        this.entrenadorId = id;
+    public void setEntrenadorActual(Entrenador entrenador) {
+        this.entrenadorActual = entrenador;
     }
 
-    public Integer getEntrenadorId() {
-        return entrenadorId;
+    public Entrenador getEntrenadorActual() {
+        return entrenadorActual;
     }
 }

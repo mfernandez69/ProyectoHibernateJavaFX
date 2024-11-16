@@ -40,7 +40,7 @@ public class EntrenadorController {
 
 	    if (entrenador != null) {
 	    	 Integer entrenadorId =entrenadorDAO.obtenerIdEntrenador(usuario);
-	    	 InicioSesion.getInstancia().setEntrenadorId(entrenadorId);
+	    	 InicioSesion.getInstancia().setEntrenadorActual(entrenador);
 	        mostrarMensaje("Éxito", "Inicio de sesión exitoso.");
 	        mandarVentanaPokemons();
 	    } else {
