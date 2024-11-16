@@ -22,24 +22,23 @@ public class DaoEntrenadorImpl implements Dao<Entrenador>{
 		
 	}
 	@SuppressWarnings("deprecation")
-	@Override
 	public Entrenador grabar(Entrenador t) {
-		Entrenador entrenador = null;
-		Integer idEntrenador;
-		sesion = HibernateUtil.getSessionFactory().openSession();
-		try {
-			transaction = sesion.beginTransaction();
-			sesion.save(t);
-			transaction.commit();
-		} catch (HibernateException e) {
-			System.out.println("Error al salvar un entrenador");
-			if (sesion.getTransaction() != null) {
-				sesion.getTransaction().rollback();
-			}
-		} finally {
-			sesion.close();
-		}
-		return entrenador;
+	    Session sesion = HibernateUtil.getSessionFactory().openSession();
+	    Transaction transaction = null;
+	    try {
+	        transaction = sesion.beginTransaction();
+	        sesion.save(t);
+	        transaction.commit();
+	        return t; // Devuelve el entrenador guardado
+	    } catch (HibernateException e) {
+	        System.out.println("Error al salvar un entrenador: " + e.getMessage());
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	    } finally {
+	        sesion.close();
+	    }
+	    return null; // Solo si hay un error
 	}
 
 	@Override

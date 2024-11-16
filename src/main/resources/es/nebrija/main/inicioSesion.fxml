@@ -39,8 +39,10 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <HBox prefHeight="54.0" prefWidth="187.0" />
-            <Button fx:id="primaryButton" onAction="#iniciarSesion" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Iniciar sesion" />
+            <HBox prefHeight="59.0" prefWidth="79.0" />
+            <Button fx:id="iniciarSesionButton" onAction="#iniciarSesion" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Iniciar sesion" />
+            <HBox prefHeight="59.0" prefWidth="79.0" />
+            <Button fx:id="registrarseButton" onAction="#registrarEntrenador" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Registrarse" />
          </children>
       </HBox>
    </children>
