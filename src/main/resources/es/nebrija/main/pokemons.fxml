@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="478.0" prefWidth="509.0" spacing="20.0" style="-fx-background-color: #ffcb05;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebrija.main.PokemonController">
+<VBox alignment="CENTER" prefHeight="547.0" prefWidth="513.0" spacing="20.0" style="-fx-background-color: #ffcb05;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebrija.main.PokemonController">
    <children>
       <Label text="Pokemons" />
       <HBox prefHeight="127.0" prefWidth="470.0" style="-fx-background-color: #ffdb50; -fx-padding: 10px; -fx-background-radius: 10px;">
@@ -78,7 +78,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefWidth="200.0">
+            <HBox prefHeight="30.0" prefWidth="224.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -87,6 +87,11 @@
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#exportarDatosCSV" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Exportar" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -103,6 +108,11 @@
             <TableColumn fx:id="habilidadColumn" prefWidth="75.0" text="habilidad" />
             <TableColumn fx:id="entrenadorColumn" prefWidth="75.0" text="entrenador" />
          </columns></TableView>
+      <HBox prefHeight="19.0" prefWidth="474.0">
+         <children>
+            <Label fx:id="textoInfo" text="Texto de exportacion" />
+         </children>
+      </HBox>
       
    </children>
    <padding>

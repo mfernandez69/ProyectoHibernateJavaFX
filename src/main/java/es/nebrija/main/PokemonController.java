@@ -1,9 +1,16 @@
 package es.nebrija.main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import es.nebrija.dao.DaoPokemonImpl;
+import es.nebrija.dao.HibernateUtil;
 import es.nebrija.entidades.*;
 import es.nebrija.entidades.Pokemon;
 import javafx.collections.FXCollections;
@@ -11,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,7 +45,9 @@ public class PokemonController {
 	private TableColumn<Pokemon, String> habilidadColumn;
 	@FXML
 	private TableColumn<Pokemon, String> entrenadorColumn;
-
+	@FXML
+	private Label textoInfo;
+	
 	Pokemon pokemonSeleccionado;
 	int filaSeleccionada;
 
@@ -47,6 +57,8 @@ public class PokemonController {
 
 	@FXML
 	public void initialize() {
+		//Hacemos que el mensaje de exportacion no se vea
+		textoInfo.setVisible(false);
 		DaoPokemonImpl = new DaoPokemonImpl();
 		ArrayList<Pokemon> listadoPokemons = (ArrayList) DaoPokemonImpl.leerLista();
 		tablaPokemons.setEditable(true);
@@ -170,5 +182,53 @@ public class PokemonController {
 	    }
 	    ObservableList<Pokemon> pokemons = FXCollections.observableArrayList(listadoPokemons);
 	    tablaPokemons.setItems(pokemons);
+	}
+	@FXML
+	void exportarDatosCSV(ActionEvent event) {
+	    // Obtener los datos de la base de datos
+	    List<Pokemon> pokemons = obtenerPokemonsDesdeBD();
+	    //Le decimos a java en que carpeta se encuentra el archivo .csv
+	    File resourcesDir = new File("resources");  
+	    // El archivo CSV donde se guardarán los datos
+	    File archivo = new File(resourcesDir, "pokemons.csv");
+
+	    // Escribir los datos en el archivo CSV
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+	        // Escribir el encabezado
+	        writer.write("ID,Nombre,Habilidad,Tipo,Entrenador\n");
+
+	        // Escribir los datos de los usuarios
+	        for (Pokemon pokemon : pokemons) {
+	            writer.write(pokemon.getId() + "," + pokemon.getName() + "," + pokemon.getHabilidad() + pokemon.getTipo()+ "," + pokemon.getEntrenador()+"\n");
+	        }
+
+	        mostrarMensaje("Éxito", "Los datos se han exportado correctamente:");
+	        System.out.println("Los datos se han exportado correctamente:"+ archivo.getAbsolutePath());
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        
+	    }
+	}
+	public List<Pokemon> obtenerPokemonsDesdeBD() {
+	    Session sesion = HibernateUtil.getSessionFactory().openSession();
+	    List<Pokemon> pokemons = new ArrayList<>();
+	    
+	    try {
+	        pokemons = sesion.createQuery("FROM Pokemon", Pokemon.class).getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        sesion.close();
+	    }
+	    
+	    return pokemons;
+	}
+	private void mostrarMensaje(String tipo, String mensaje) {
+	    if (tipo.equals("Éxito")) {
+	        textoInfo.setText(mensaje);
+	        textoInfo.setVisible(true);
+	    } else {
+	    	textoInfo.setVisible(false);
+	    }
 	}
 }
