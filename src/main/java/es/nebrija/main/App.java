@@ -27,7 +27,7 @@ public class App extends Application {
             alert.setContentText("Por favor, asegúrate de que XAMPP y el servidor MySQL estén en ejecución.");
             alert.showAndWait();
             
-             System.exit(1); // Descomentar la aplicación en caso de error
+             System.exit(1); // desconectamos la aplicación en caso de error
         }
 
         scene = new Scene(loadFXML("inicioSesion"), 640, 480);

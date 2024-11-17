@@ -40,9 +40,9 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <HBox prefHeight="59.0" prefWidth="79.0" />
-            <Button fx:id="iniciarSesionButton" onAction="#iniciarSesion" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Iniciar sesion" />
+            <Button fx:id="iniciarSesionButton" onAction="#iniciarSesion" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Iniciar sesion" textFill="WHITE" />
             <HBox prefHeight="59.0" prefWidth="79.0" />
-            <Button fx:id="registrarseButton" onAction="#registrarEntrenador" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Registrarse" />
+            <Button fx:id="registrarseButton" onAction="#registrarEntrenador" style="-fx-background-color: #262626; -fx-background-radius: 5px;" text="Registrarse" textFill="WHITE" />
          </children>
       </HBox>
    </children>

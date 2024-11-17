@@ -64,17 +64,6 @@ INSERT INTO `habilidad` (`idHabilidad`, `descripcion`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `plataforma`
---
-
-CREATE TABLE `plataforma` (
-  `idPlataforma` int(11) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `pokemon`
 --
 
@@ -147,12 +136,6 @@ ALTER TABLE `habilidad`
   ADD PRIMARY KEY (`idHabilidad`);
 
 --
--- Indices de la tabla `plataforma`
---
-ALTER TABLE `plataforma`
-  ADD PRIMARY KEY (`idPlataforma`);
-
---
 -- Indices de la tabla `pokemon`
 --
 ALTER TABLE `pokemon`
@@ -182,12 +165,6 @@ ALTER TABLE `entrenador`
 --
 ALTER TABLE `habilidad`
   MODIFY `idHabilidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `plataforma`
---
-ALTER TABLE `plataforma`
-  MODIFY `idPlataforma` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemon`

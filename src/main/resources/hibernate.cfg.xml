@@ -16,8 +16,6 @@
 
         <!-- Actualizar automáticamente las tablas de la base de datos según las entidades definidas -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-
-		<mapping class="es.nebrija.entidades.Plataforma"/>
 		
 		<mapping class="es.nebrija.entidades.Habilidad"/>
 		<mapping class="es.nebrija.entidades.Pokemon"/>
